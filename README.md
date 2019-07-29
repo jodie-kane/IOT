@@ -30,6 +30,6 @@ user@host> IOTPLay
 ```
 
 TODO:
- make vlc -> xdg-open 
- perhaps consolidate wget into curl to reduce dependencies
- maybe remove fzf dependency...
+  - make vlc -> xdg-open 
+  - perhaps consolidate wget into curl to reduce dependencies
+  - maybe remove fzf dependency...
