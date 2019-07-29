@@ -1,0 +1,41 @@
+#!/bin/bash 
+
+##cant play the SummerRepeats with their stupid parentheses in the filename
+
+IOT_ROOT=~/bin/IOT
+IOT_HOME=~/Audio/InOurTime
+IOT_DB="${IOT_ROOT}/iot.db"
+
+#name="$(cat ${IOT_ROOT}/iot.db | fzf -d'\|' -0 -1 -e +m +s --cycle --reverse -i --with-nth=2 --preview='echo {5}' --preview-window='wrap' | cut -d'|' -f 2 )"
+## TODO list from iot.db and mark download state
+
+# sort by download time for now; add option to mod sort later
+file="$( ls -1t ${IOT_HOME} | fzf -0 -1 -e +m +s --cycle --reverse -i )" 
+if [[ "x${file}" == "x" ]]
+then
+  echo -ne "\nNothing Selected...Aborted.\n\n"
+  exit 0
+fi
+
+srch="$( echo ${file} | sed -nre 's/.*-(.*?).mp3/\1/ p' )"
+
+iot_ents="$( cut -d'|' -f 1,2 ${IOT_DB} | tr -d "'" | tr -d ' ' )"
+
+id=$( echo "${iot_ents}" | grep -i "${srch}" | cut -d'|' -f 1 )
+
+desc="$( grep ${id} ${IOT_DB} | cut -d'|' -f 7 )"
+desc="$( echo ${desc} | fmt -w $( tput cols ) )"
+
+if [[ -f "${IOT_HOME}/${file}" ]]
+then
+  echo -ne "\nFile: ${IOT_HOME}/${file}\n"
+  echo -ne "\n${desc}\n\n"
+  read -p "Play with VLC? [Y/n]? " ans
+
+  case "${ans}" in
+    n|N|No|no|nO|NO) echo -ne "\n...Aborted.\n\n"; exit 0;;
+    *)  #skip 19 seconds to avoid BBC nonsense.  Will mean having to skip backwards manually on older podcasts 
+        vlc -I qt --qt-continue 2 --start-time=19 "${IOT_HOME}/${file}" &>/dev/null &;;
+  esac
+
+fi
