@@ -13,20 +13,20 @@ Dependencies:
 
 ### Fetch an episode
 ```bash
-  user@host> IOTFetch 
+user@host> IOTFetch 
 ```
 ### Incremental update of iot.db 
 ```bash
-  user@host> IOTFetch -u 
+user@host> IOTFetch -u 
 ```
 ### Full update of iot.db (should be used sparingly)
 ```bash
-  user@host> IOTFetch -u 0
+user@host> IOTFetch -u 0
 ```
 
 ### Play an episode with vlc
 ```bash
-  user@host> IOTPLay
+user@host> IOTPLay
 ```
 
 TODO:
