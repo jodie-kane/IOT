@@ -11,20 +11,20 @@ Dependencies:
  - curl 
  - wget 
 
-## Fetch an episode
+### Fetch an episode
 ```bash
   user@host> IOTFetch 
 ```
-## Incremental update of iot.db 
+### Incremental update of iot.db 
 ```bash
   user@host> IOTFetch -u 
 ```
-## Full update of iot.db (should be used sparingly)
+### Full update of iot.db (should be used sparingly)
 ```bash
   user@host> IOTFetch -u 0
 ```
 
-## Play an episode with vlc
+### Play an episode with vlc
 ```bash
   user@host> IOTPLay
 ```
