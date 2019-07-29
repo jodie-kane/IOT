@@ -11,17 +11,23 @@ Dependencies:
  - curl 
  - wget 
 
-# fetch an episode
-shell> IOTFetch 
+## Fetch an episode
+```bash
+  user@host> IOTFetch 
+```
+## Incremental update of iot.db 
+```bash
+  user@host> IOTFetch -u 
+```
+## Full update of iot.db (should be used sparingly)
+```bash
+  user@host> IOTFetch -u 0
+```
 
-# incremental update of iot.db 
-shell> IOTFetch -u 
-
-# full update of iot.db
-shell> IOTFetch -u 0
-
-# Play an episode with vlc
-sheel> IOTPlay
+## Play an episode with vlc
+```bash
+  user@host> IOTPLay
+```
 
 TODO:
  make vlc -> xdg-open 
