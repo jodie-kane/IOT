@@ -158,13 +158,17 @@ function updateDB(){
   mv "${tdb2}" "${IOT_DB}"
 }
 
-if [[ ${1} == "-u" ]]
-then
-  updateDB
-  exit 0
-fi
 
-choice=$( cat ${IOT_ROOT}/iot.db | fzf -0 -1 -d'\|' -e +m +s --cycle --reverse -i --with-nth=2 --preview='echo {7} | fmt -w $(tput cols )' --preview-window='wrap' --bind='alt-j:preview-page-down,alt-k:preview-page-up' )
+  ## args --
+  ## -u := update the database
+  ## -d := supply the episode description to the fzf filter
+  nth="2"
+  case "${1}" in
+    -u) updateDB; exit 0;;
+    -d) nth="2,7";;
+  esac
+
+choice=$( cat ${IOT_ROOT}/iot.db | fzf -0 -1 -d'\|' -e +m +s --cycle --reverse -i --with-nth=${nth} --preview='echo {7} | fmt -w $(tput cols )' --preview-window='wrap' --bind='alt-j:preview-page-down,alt-k:preview-page-up' )
 
 name="$(         echo ${choice} | cut -d'|' -f 2 )"
 url="https://$(  echo ${choice} | cut -d'|' -f 6 )"
