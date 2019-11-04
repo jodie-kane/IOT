@@ -20,6 +20,9 @@ IOT_URI="https://www.bbc.co.uk/programmes/b006qykl/episodes/downloads"
 # our InOurTime Database
 IOT_DB="${IOT_ROOT}/iot.db"
 
+# echo command instead of running it
+dryrun=""
+
 # used to update iot.db
 # tries to /not/ hammer the website
 # IOTFetch -u will update until the latest known episode
@@ -166,6 +169,7 @@ function updateDB(){
   case "${1}" in
     -u) updateDB; exit 0;;
     -d) nth="2,7";;
+    -n) dryrun="echo ";;
   esac
 
 choice=$( cat ${IOT_ROOT}/iot.db | fzf -0 -1 -d'\|' -e +m +s --cycle --reverse -i --with-nth=${nth} --preview='echo {7} | fmt -w $(tput cols )' --preview-window='wrap' --bind='alt-j:preview-page-down,alt-k:preview-page-up' )
@@ -188,7 +192,7 @@ then
 
     (
       cd ${IOT_HOME}
-      curl -J -O -L --progress-bar "${url}" # -L := allow redirects, -J := Content-Disposition filename 
+      ${dryrun} curl -J -O -L --progress-bar "${url}" # -L := allow redirects, -J := Content-Disposition filename 
     ) 
  
   fi
