@@ -169,7 +169,7 @@ function updateDB(){
 }
 
 
-  ## args --
+  ## args -- simple parsing 
   ## -u := update the database
   ## -d := supply the episode description to the fzf filter
   nth="2"
