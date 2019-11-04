@@ -32,6 +32,13 @@ function updateDB(){
  
   ans="n"
   cont=1
+  full=${1:-1}
+
+  umsg="You are requesting a partial update of the BBC In Our Time Podcast, are you sure?"
+  if [[ ${full} -eq 0 ]]
+  then
+    umsg="You are requesting a full update of the BBC In Our Time Podcase, are you sure?"
+  fi
 
   echo -ne "\nYou are about to parse the BBC In Our Time Podcast Archive\n\n"
   read -p "Are You Sure [y/N]? " ans
@@ -167,7 +174,7 @@ function updateDB(){
   ## -d := supply the episode description to the fzf filter
   nth="2"
   case "${1}" in
-    -u) updateDB; exit 0;;
+    -u) updateDB ${2}; exit 0;;
     -d) nth="2,7";;
     -n) dryrun="echo ";;
   esac
