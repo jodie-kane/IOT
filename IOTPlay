@@ -10,7 +10,7 @@ IOT_DB="${IOT_ROOT}/iot.db"
 ## TODO list from iot.db and mark download state
 
 # sort by download time for now; add option to mod sort later
-file="$( ls -1t ${IOT_HOME} | fzf -0 -1 -e +m +s --cycle --reverse -i )" 
+file="$( ls -1t ${IOT_HOME} | fzf -0 -1 -e +m +s --cycle --reverse -i --preview='echo {5}' --preview-window='wrap' )" 
 if [[ "x${file}" == "x" ]]
 then
   echo -ne "\nNothing Selected...Aborted.\n\n"
